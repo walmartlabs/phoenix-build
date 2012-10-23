@@ -1,0 +1,26 @@
+{
+  "name": "phoenix-build",
+  "version": "1.0.0",
+  "private": true,
+  "main": "phoenix-build.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/walmartlabs/phoenix-build.git"
+  },
+  "engines": {
+    "node": ">= 0.6"
+  },
+  "dependencies": {
+    "glob": "~3",
+    "growl": "*",
+    "lumbar": "~2.0",
+    "lumbar-long-expires": "~1.0",
+    "lumbar-style-doc": "~0.5",
+    "lumbar-tester": "~1.0",
+    "mock-server": "*",
+    "wrench": "*"
+  },
+  "scripts": {
+    "test": "jake test"
+  }
+}
