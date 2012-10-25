@@ -135,6 +135,33 @@ exports.startServer = function(options) {
   return server;
 };
 
+exports.watch = function(server, mocks) {
+  glob.sync('build/dev').forEach(wrench.rmdirSyncRecursive);
+
+  var run;
+  exports.startServer({
+    proxy: server,
+    mocks: mocks,
+    data: function() {
+      if (run) {
+        return;
+      }
+      run = true;
+
+      exports.build({
+        dir: 'build/dev',
+        watch: true,
+        complete: function(code) {
+          process.exit(code);
+        }
+      });
+    },
+    complete: function(code) {
+      process.exit(code);
+    }
+  });
+};
+
 desc('The default task. Executes init');
 task('default', ['lumbar'], function() {});
 
@@ -180,6 +207,11 @@ task('heroku-test', [], function() {
     complete: complete
   });
 }, true);
+
+desc('Initializes the file change watcher for stylus scripts');
+task('watch', [], function(server, mocks) {
+  exports.watch(exports.serverName.apply(exports, arguments), mocks);
+});
 
 desc('Starts up the server in normal mode');
 task('start', [], function(server, mocks) {
