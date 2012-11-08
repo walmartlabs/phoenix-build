@@ -254,7 +254,6 @@ task('test-runner', [], function(webOnly) {
 
       (function exec() {
         var platform = exports.testPlatforms.shift();
-        console.log(platform);
         if (webOnly && !platform.webOnly) {
           process.exit(superCode);
           return;
