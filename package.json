@@ -1,6 +1,6 @@
 {
   "name": "phoenix-build",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "phoenix-build.js",
   "repository": {
     "type": "git",
@@ -21,5 +21,7 @@
   },
   "scripts": {
     "test": "jake test"
-  }
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
 }
