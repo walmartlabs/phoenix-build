@@ -17,6 +17,7 @@
     "lumbar-style-doc": "~0.5",
     "lumbar-tester": "~1.0",
     "mock-server": "*",
+    "mocha-phantomjs": "git://github.com/kpdecker/mocha-phantomjs.git",
     "wrench": "*"
   },
   "scripts": {

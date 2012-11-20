@@ -224,11 +224,16 @@ task('test-runner', [], function(webOnly) {
   var superCode = 0;
 
   function runPhantom(platform, androidUserAgent, callback) {
-    console.log('Running platform: ' + platform + ' androidUserAgent: ' + androidUserAgent);
+    console.log('Running platform: ' + platform + ' androidUserAgent: ' + (!!androidUserAgent));
     var userAgent = androidUserAgent ?
             'Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; Nexus S Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
             : 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3',
-        phantom = child_process.spawn('phantomjs', [__dirname + '/test/run-qunit.js', 'http://localhost:58080/r/phoenix/' + platform + '/test.html', userAgent]);
+        phantom;
+    if (exports.mochaTests) {
+      phantom = child_process.spawn(__dirname + '/node_modules/.bin/mocha-phantomjs', ['-A', userAgent, 'http://localhost:58080/r/phoenix/' + platform + '/test.html']);
+    } else {
+      phantom = child_process.spawn('phantomjs', [__dirname + '/test/run-qunit.js', 'http://localhost:58080/r/phoenix/' + platform + '/test.html', userAgent]);
+    }
     phantom.stdout.on('data', function (data) {
       streamData('  phantom: ', data);
     });
