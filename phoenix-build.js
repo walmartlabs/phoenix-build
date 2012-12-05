@@ -20,7 +20,7 @@ function mkdir(dirname, mode) {
       if (stats.isDirectory()) {
         break;
       }
-      throw new Error('Unable to create directory at '+fn);
+      throw new Error('Unable to create directory at ' + fn);
     }
     catch (e) {
       pathsNotFound.push(fn);
@@ -101,10 +101,14 @@ exports.startServer = function(options) {
   var args = [
     __dirname + '/node_modules/mock-server/bin/mock-server',
     exports.projectDir,
-    options.proxy,
-    test ? 58080 : 8080,
-    test ? 58081 : 8081
+    '--proxy-server=' + options.proxy,
+    '--port=' + (test ? 58080 : 8080),
+    '--secure-port=' + (test ? 58081 : 8081)
   ];
+  if (exports.forceCORS) {
+    args.push('--force-cors');
+  }
+
   var server = child_process.spawn('node', args, {
     env: process.env
   });
@@ -174,7 +178,7 @@ task('lumbar', [], function() {
 }, true);
 
 desc('Builds production packages');
-task('release', [], function(prefix, package) {
+task('release', [], function(prefix) {
   prefix = prefix || 'phoenix';
 
   exports.build({
@@ -264,7 +268,7 @@ task('test-runner', [], function(webOnly) {
           return;
         }
 
-        runPhantom(platform.platform, platform.androidUA, function(code) {
+        runPhantom(platform.platform, platform.androidUA, function() {
           if (!exports.testPlatforms.length) {
             process.exit(superCode);
           } else {
