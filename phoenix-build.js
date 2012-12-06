@@ -27,7 +27,7 @@ function mkdir(dirname, mode) {
       fn = path.dirname(fn);
     }
   }
-  for (var i=pathsNotFound.length-1; i>-1; i--) {
+  for (var i = pathsNotFound.length - 1; i > -1; i--) {
     var fn = pathsNotFound[i];
     console.log('mkdir:\t\033[90mmaking directory\033[0m ' + fn);
     fs.mkdirSync(fn, mode);
@@ -36,14 +36,14 @@ function mkdir(dirname, mode) {
 
 function streamData(prefix, data) {
   var lines = data.toString().split(/\r\n|\n|\r/g);
-  for (var i = 0, len = lines.length-1; i < len; i++) {
+  for (var i = 0, len = lines.length - 1; i < len; i++) {
     util.print(prefix);
     util.print(lines[i]);
     util.print('\n');
   }
-  if (lines[lines.length-1]) {
+  if (lines[lines.length - 1]) {
     util.print(prefix);
-    util.print(lines[lines.length-1]);
+    util.print(lines[lines.length - 1]);
   }
 }
 
@@ -53,18 +53,18 @@ exports.build = function(options) {
   mkdir(options.dir);
 
   var args = [
-      __dirname + '/node_modules/lumbar/bin/lumbar',
-      options.watch ? 'watch' : 'build',
-      '--config', options.configFile || './config/dev.json',
-      '--use', __dirname + '/node_modules/lumbar-long-expires',
-      '--use', __dirname + '/node_modules/lumbar-tester',
-      '--with', '{"includeTests": ' + !options.removeTests + '}',
-      '--use', __dirname + '/node_modules/lumbar-style-doc',
-      '--with', '{"removeDocs": ' + !!options.removeTests + '}',
-      '--use', 'conditional',
-      '--with', '{"env": "' + (options.minimize ? 'production' : 'dev') + '"}',
-      './lumbar.json',
-      (options.dir || '.')
+    __dirname + '/node_modules/lumbar/bin/lumbar',
+    options.watch ? 'watch' : 'build',
+    '--config', options.configFile || './config/dev.json',
+    '--use', __dirname + '/node_modules/lumbar-long-expires',
+    '--use', __dirname + '/node_modules/lumbar-tester',
+    '--with', '{"includeTests": ' + !options.removeTests + '}',
+    '--use', __dirname + '/node_modules/lumbar-style-doc',
+    '--with', '{"removeDocs": ' + !!options.removeTests + '}',
+    '--use', 'conditional',
+    '--with', '{"env": "' + (options.minimize ? 'production' : 'dev') + '"}',
+    './lumbar.json',
+    (options.dir || '.')
   ];
   if (options.package) {
     args.push('--package');
@@ -83,9 +83,11 @@ exports.build = function(options) {
   });
 
   lumbar.on('exit', function(code) {
-    complete || growl('Lumbar Borked', { title: 'Lumbar Borked', sticky: true });
-
-    complete && complete(code);
+    if (!complete) {
+      growl('Lumbar Borked', { title: 'Lumbar Borked', sticky: true });
+    } else {
+      complete(code);
+    }
   });
   return lumbar;
 };
@@ -113,7 +115,9 @@ exports.startServer = function(options) {
     env: process.env
   });
   server.stdout.on('data', function (data) {
-    onData && onData(data);
+    if (onData) {
+      onData(data);
+    }
 
     // Do not output module, etc requests if in test mode
     if (!test || !/GET \/r\/phoenix/.test(data)) {
@@ -121,19 +125,27 @@ exports.startServer = function(options) {
     }
   });
   server.stderr.on('data', function (data) {
-    onData && onData(data);
+    if (onData) {
+      onData(data);
+    }
     streamData((test ? '  ' : '') + 'server: ', data);
   });
 
-  !test && server.on('exit', function(code) {
-    growl('Server Borked', { title: 'Server Borked', sticky: true });
+  if (!test) {
+    server.on('exit', function(code) {
+      growl('Server Borked', { title: 'Server Borked', sticky: true });
 
-    complete && complete(code);
-  });
+      if (complete) {
+        complete(code);
+      }
+    });
+  }
 
   // If we die we're taking the server with us (to prevent ports from hanging around)
   process.on('exit', function() {
-    server && server.kill();
+    if (server) {
+      server.kill();
+    }
   });
 
   return server;
@@ -178,12 +190,12 @@ task('lumbar', [], function() {
 }, true);
 
 desc('Builds production packages');
-task('release', [], function(prefix) {
+task('release', [], function(prefix, pkg) {
   prefix = prefix || 'phoenix';
 
   exports.build({
     dir: 'build/' + prefix,
-    package: package,
+    package: pkg,
     minimize: true,
     removeTests: true,
     configFile: './config/production.json',
