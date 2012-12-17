@@ -257,7 +257,6 @@ task('test-runner', [], function(webOnly, xunit) {
 
     var buffer = '';
     phantom.stdout.on('data', function (data) {
-      console.log(typeof data);
       if (exports.mochaTests && xunit) {
         buffer += data;
       } else {
@@ -292,7 +291,6 @@ task('test-runner', [], function(webOnly, xunit) {
         }
 
         runPhantom(platform.platform, platform.androidUA, xunit, function(code, buffer) {
-          console.log(buffer);
           if (exports.mochaTests && xunit) {
             fs.writeFile('build/' + platform.platform + (platform.androidUA ? '_android' : '') + '.xml', buffer);
           }
