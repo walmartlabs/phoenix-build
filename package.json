@@ -18,7 +18,8 @@
     "lumbar-tester": "~1.0",
     "mock-server": "~1.1",
     "mocha-phantomjs": "~1.1",
-    "wrench": "*"
+    "wrench": "*",
+    "portscanner": "~0.1.3"
   },
   "scripts": {
     "test": "jake test"

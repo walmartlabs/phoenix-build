@@ -1,8 +1,10 @@
+/*global jake */
 var child_process = require('child_process'),
     fs = require('fs'),
     glob = require('glob'),
     growl = require('growl'),
     path = require('path'),
+    portscanner = require('portscanner'),
     util = require('util'),
     wrench = require('wrench');
 
@@ -104,8 +106,8 @@ exports.startServer = function(options) {
     __dirname + '/node_modules/mock-server/bin/mock-server',
     exports.projectDir,
     '--proxy-server=' + options.proxy,
-    '--port=' + (test ? 58080 : 8080),
-    '--secure-port=' + (test ? 58081 : 8081)
+    '--port=' + (options.port || 8080),
+    '--secure-port=' + (options.securePort || 8081)
   ];
   if (exports.forceCORS) {
     args.push('--force-cors');
@@ -239,20 +241,20 @@ desc('Testing');
 task('test-runner', [], function(webOnly, xunit) {
   var superCode = 0;
 
-  function runPhantom(platform, androidUserAgent, xunit, callback) {
+  function runPhantom(platform, androidUserAgent, xunit, port, callback) {
     console.log('Running platform: ' + platform + ' androidUserAgent: ' + (!!androidUserAgent));
     var userAgent = androidUserAgent ?
             'Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; Nexus S Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
             : 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3',
         phantom;
     if (exports.mochaTests) {
-      var args = ['-A', userAgent, 'http://localhost:58080/r/phoenix/' + platform + '/test.html'];
+      var args = ['-A', userAgent, 'http://localhost:' + port + '/r/phoenix/' + platform + '/test.html'];
       if (xunit) {
         args.push('-R', 'xunit');
       }
       phantom = child_process.spawn(__dirname + '/node_modules/.bin/mocha-phantomjs', args);
     } else {
-      phantom = child_process.spawn('phantomjs', [__dirname + '/test/run-qunit.js', 'http://localhost:58080/r/phoenix/' + platform + '/test.html', userAgent]);
+      phantom = child_process.spawn('phantomjs', [__dirname + '/test/run-qunit.js', 'http://localhost:' + port + '/r/phoenix/' + platform + '/test.html', userAgent]);
     }
 
     var buffer = '';
@@ -272,37 +274,57 @@ task('test-runner', [], function(webOnly, xunit) {
     });
   }
 
-  var run;
-  exports.startServer({
-    proxy: exports.serverName.call(exports),
-    mocks: true,
-    test: true,
-    data: function() {
-      if (run) {
-        return;
+  function findPorts(callback) {
+    portscanner.findAPortNotInUse(58080, 58090, 'localhost', function(err, port) {
+      if (err) {
+        throw err;
       }
-      run = true;
 
-      (function exec() {
-        var platform = exports.testPlatforms.shift();
-        if (webOnly && !platform.webOnly) {
-          process.exit(superCode);
-          return;
+      portscanner.findAPortNotInUse(port+1, 58090, 'localhost', function(err, securePort) {
+        if (err) {
+          throw err;
         }
 
-        runPhantom(platform.platform, platform.androidUA, xunit, function(code, buffer) {
-          if (exports.mochaTests && xunit) {
-            fs.writeFileSync('build/' + platform.platform + (platform.androidUA ? '_android' : '') + '.xml', buffer);
+        callback(port, securePort);
+      });
+    });
+  }
+
+  var run;
+  findPorts(function(port, securePort) {
+    exports.startServer({
+      proxy: exports.serverName.call(exports),
+      mocks: true,
+      test: true,
+      port: port,
+      securePort: securePort,
+      data: function() {
+        if (run) {
+          return;
+        }
+        run = true;
+
+        (function exec() {
+          var platform = exports.testPlatforms.shift();
+          if (webOnly && !platform.webOnly) {
+            process.exit(superCode);
+            return;
           }
 
-          if (!exports.testPlatforms.length) {
-            process.exit(superCode);
-          } else {
-            exec();
-          }
-        });
-      })();
-    }
+          runPhantom(platform.platform, platform.androidUA, xunit, port, function(code, buffer) {
+            if (exports.mochaTests && xunit) {
+              fs.writeFileSync('build/' + platform.platform + (platform.androidUA ? '_android' : '') + '.xml', buffer);
+            }
+
+            if (!exports.testPlatforms.length) {
+              process.exit(superCode);
+            } else {
+              exec();
+            }
+          });
+        })();
+      }
+    });
   });
 });
 
