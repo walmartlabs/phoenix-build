@@ -292,7 +292,7 @@ task('test-runner', [], function(webOnly, xunit) {
 
         runPhantom(platform.platform, platform.androidUA, xunit, function(code, buffer) {
           if (exports.mochaTests && xunit) {
-            fs.writeFile('build/' + platform.platform + (platform.androidUA ? '_android' : '') + '.xml', buffer);
+            fs.writeFileSync('build/' + platform.platform + (platform.androidUA ? '_android' : '') + '.xml', buffer);
           }
 
           if (!exports.testPlatforms.length) {
