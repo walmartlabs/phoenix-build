@@ -16,7 +16,7 @@
     "lumbar-long-expires": "~1.0",
     "lumbar-style-doc": "~0.5",
     "lumbar-tester": "~1.0",
-    "mock-server": "~1.0",
+    "mock-server": "~1.1",
     "mocha-phantomjs": "~1.1",
     "wrench": "*"
   },
