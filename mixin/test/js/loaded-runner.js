@@ -1,7 +1,7 @@
 /*global chai, mocha, mochaPhantomJS */
 mocha.setup({
   ui: 'bdd',
-  globals: ['addEventListener', 'removeEventListener']
+  ignoreLeaks: true
 });
 
 window.expect = chai.expect;
