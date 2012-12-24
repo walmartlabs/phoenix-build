@@ -48,5 +48,7 @@ function qunitShim() {
   };
 
   window.equal = chai.assert.equal;
+  window.deepEqual = chai.assert.deepEqual;
+  window.notEqual = chai.assert.notEqual;
   window.ok = chai.assert.ok;
 }
