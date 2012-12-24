@@ -40,9 +40,10 @@ Loader.loader.loadComplete = function(moduleName) {
     return;
   }
 
-  var fragment;
-  Backbone.history.getFragment = function() { return fragment; };
-  Backbone.history.navigate = function(_fragment) { fragment = _fragment; };
+  var fragment = '';
+  Backbone.history.options = { root: '/' };
+  Backbone.History.prototype.getFragment = function() { return fragment; };
+  Backbone.History.prototype.navigate = function(_fragment) { fragment = _fragment; };
 
   if (Loader.tests) {
     Loader.tests();
