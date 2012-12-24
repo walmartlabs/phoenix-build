@@ -1,0 +1,38 @@
+{
+  "name": "phoenix-build",
+
+  "mixins": {
+    "test": {
+      "topLevelName": "Test",
+      "test-module": true,
+
+      "scripts": [
+        {"src": "test/lib/mocha.js", "global": true, "ignoreWarnings": true},
+        {"src": "test/lib/chai.js", "global": true, "ignoreWarnings": true},
+        {"src": "test/lib/sinon-chai.js", "global": true},
+        {"src": "test/lib/sinon.js", "global": true, "ignoreWarnings": true},
+        {"src": "test/js/sinon-backbone.js", "global": true},
+        "test/js/qunit-shim.js"
+      ],
+      "styles": [
+        "test/lib/mocha.css",
+        "test/lib/mocha-override.css"
+      ],
+      "aliases": false
+    },
+
+    "test-runner": {
+      "scripts": [
+        "test/js/runner.js",
+      ],
+      "static": [
+        {"src": "test/index.html", "dest": "test.html", "update-externals": true, "no-expires-token": true}
+      ],
+    },
+    "loaded-test-runner": {
+      "scripts": [
+        "test/js/loaded-runner.js",
+      ]
+    }
+  }
+}

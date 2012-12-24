@@ -1,0 +1,14 @@
+#mocha-stats {
+  position: static;
+}
+
+#mocha .test a.replay {
+  right: 0;
+}
+
+#qunit-fixture {
+  position: absolute;
+  top: 0;
+  height: 1px;
+  visibility: hidden;
+}
