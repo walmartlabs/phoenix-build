@@ -228,7 +228,7 @@ task('heroku-test', [], function() {
 
 desc('Initializes the file change watcher for stylus scripts');
 task('watch', [], function(server, mocks) {
-  exports.watch(exports.serverName.apply(exports, arguments), mocks);
+  exports.watch((exports.serverName || function() {}).apply(exports, arguments), mocks);
 });
 
 desc('Starts up the server in normal mode');
@@ -280,7 +280,7 @@ task('test-runner', [], function(webOnly, xunit) {
         throw err;
       }
 
-      portscanner.findAPortNotInUse(port+1, 58090, 'localhost', function(err, securePort) {
+      portscanner.findAPortNotInUse(port + 1, 58090, 'localhost', function(err, securePort) {
         if (err) {
           throw err;
         }
@@ -293,7 +293,7 @@ task('test-runner', [], function(webOnly, xunit) {
   var run;
   findPorts(function(port, securePort) {
     exports.startServer({
-      proxy: exports.serverName.call(exports),
+      proxy: (exports.serverName || function() {}).call(exports),
       mocks: true,
       test: true,
       port: port,
