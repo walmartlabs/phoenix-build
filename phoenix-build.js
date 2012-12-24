@@ -65,7 +65,7 @@ exports.build = function(options) {
     '--with', '{"removeDocs": ' + !!options.removeTests + '}',
     '--use', 'conditional',
     '--with', '{"env": "' + (options.minimize ? 'production' : 'dev') + '"}',
-    './lumbar.json',
+    exports.lumbarFile || './lumbar.json',
     (options.dir || '.')
   ];
   if (options.package) {
