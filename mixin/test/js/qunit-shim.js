@@ -2,7 +2,15 @@
 /*global chai */
 function qunitShim() {
   var _currentTest,
-      _describe = describe;
+      _describe = describe,
+      fixture;
+
+  beforeEach(function() {
+    fixture = $('#qunit-fixture').html();
+  });
+  afterEach(function() {
+    $('#qunit-fixture').html(fixture);
+  });
 
   function emitQUnit() {
     if (_currentTest) {
