@@ -11,8 +11,7 @@
         {"src": "test/lib/chai.js", "global": true, "ignoreWarnings": true},
         {"src": "test/lib/sinon-chai.js", "global": true},
         {"src": "test/lib/sinon.js", "global": true, "ignoreWarnings": true},
-        {"src": "test/js/sinon-backbone.js", "global": true},
-        "test/js/qunit-shim.js"
+        {"src": "test/js/sinon-backbone.js", "global": true}
       ],
       "styles": [
         "test/lib/mocha.css",

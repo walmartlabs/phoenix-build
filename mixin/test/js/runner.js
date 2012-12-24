@@ -33,6 +33,10 @@ afterEach(function() {
   LocalCache.reset(true);
 });
 
+if (typeof qunitShim !== 'undefined') {
+  qunitShim();
+}
+
 // Register the init logic
 Loader.loader.loadComplete = function(moduleName) {
   // Prevent exec when not in test mode or after already executed
