@@ -25,7 +25,8 @@
         "test/js/runner.js",
       ],
       "static": [
-        {"src": "test/index.html", "dest": "test.html", "update-externals": true, "no-expires-token": true}
+        {"src": "test/index-combined.html", "dest": "test.html", "update-externals": true, "no-expires-token": true, "combined": true},
+        {"src": "test/index.html", "dest": "test.html", "update-externals": true, "no-expires-token": true, "combined": false}
       ],
     },
     "loaded-test-runner": {
