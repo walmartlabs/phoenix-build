@@ -36,7 +36,21 @@ function qunitShim() {
     _describe.call(this, name, exec);
   };
 
+  window.test = function(msg, exec) {
+    if (typeof exec === 'number') {
+      exec = arguments[2];
+    }
+
+    if (_currentTest) {
+      _currentTest.tests.push({msg: msg, exec: exec});
+    } else {
+      console.log(exec.length);
+      it(msg, exec);
+    }
+  };
+
   window.QUnit = {
+    test: window.test,
     module: function(name, config) {
       emitQUnit();
       _currentTest = {
@@ -44,14 +58,6 @@ function qunitShim() {
         config: config,
         tests: []
       };
-    }
-  };
-
-  window.test = function(msg, exec) {
-    if (_currentTest) {
-      _currentTest.tests.push({msg: msg, exec: exec});
-    } else {
-      //it(msg, exec);
     }
   };
 
