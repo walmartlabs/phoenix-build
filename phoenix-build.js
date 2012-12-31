@@ -12,7 +12,7 @@ var child_process = require('child_process'),
 // mkdirsSync(path, [mode=(0777^umask)]) -> pathsCreated
 function mkdir(dirname, mode) {
   if (mode === undefined) {
-    mode = 0777 ^ process.umask();
+    mode = parseInt('0777', 8) ^ process.umask();
   }
   var pathsNotFound = [];
   var fn = dirname;
