@@ -3,6 +3,7 @@ var child_process = require('child_process'),
     fs = require('fs'),
     glob = require('glob'),
     growl = require('growl'),
+    packageGenerator = require('./lib/package-generator'),
     path = require('path'),
     portscanner = require('portscanner'),
     util = require('util'),
@@ -205,7 +206,16 @@ task('release', [], function(prefix, pkg) {
       if (code) {
         process.exit(code);
       } else {
-        complete();
+        if (exports.generatePackage) {
+          packageGenerator.generate('./package.json', 'build/' + prefix + '/package.json', function(err) {
+            if (err) {
+              throw err;
+            }
+            complete();
+          });
+        } else {
+          complete();
+        }
       }
     }
   });
