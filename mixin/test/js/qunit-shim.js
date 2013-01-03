@@ -44,7 +44,6 @@ function qunitShim() {
     if (_currentTest) {
       _currentTest.tests.push({msg: msg, exec: exec});
     } else {
-      console.log(exec.length);
       it(msg, exec);
     }
   };
