@@ -24,15 +24,6 @@ beforeEach(function() {
   // Mocking manually to ease the cases where we do want to mock this
   this._setView = Phoenix.setView;
   Phoenix.setView = function() { throw new Error('setView called without stub'); };
-
-  if (!console._log) {
-    _.each(['log', 'warn', 'error'], function(name) {
-      console['_' + name] = console[name];
-      console[name] = function() {
-        throw new Error('console.' + name + ': ' + _.toArray(arguments).join(' '));
-      }
-    });
-  }
 });
 afterEach(function() {
   this.clock.tick(1000);
