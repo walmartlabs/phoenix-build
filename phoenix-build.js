@@ -159,96 +159,15 @@ task('start', [], function(server, mocks) {
 
 desc('Testing');
 task('test-runner', [], function(webOnly, xunit) {
-  var superCode = 0;
-
-  function runPhantom(platform, androidUserAgent, xunit, port, callback) {
-    console.log('Running platform: ' + platform + ' androidUserAgent: ' + (!!androidUserAgent));
-    var userAgent = androidUserAgent ?
-            'Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; Nexus S Build/GRK39F) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
-            : 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3',
-        phantom;
-    if (exports.mochaTests) {
-      var args = ['-A', userAgent, 'http://localhost:' + port + '/r/phoenix/' + platform + '/test.html'];
-      if (xunit) {
-        args.push('-R', 'xunit');
-      }
-      phantom = child_process.spawn(__dirname + '/node_modules/.bin/mocha-phantomjs', args);
-    } else {
-      phantom = child_process.spawn('phantomjs', [__dirname + '/test/run-qunit.js', 'http://localhost:' + port + '/r/phoenix/' + platform + '/test.html', userAgent]);
-    }
-
-    var buffer = '';
-    phantom.stdout.on('data', function (data) {
-      if (exports.mochaTests && xunit) {
-        buffer += data;
-      } else {
-        streamData('  phantom: ', data);
-      }
-    });
-    phantom.stderr.on('data', function (data) {
-      streamData('  phantom err: ', data);
-    });
-    phantom.on('exit', function(code) {
-      superCode = superCode | code;
-      if (!xunit && code) {
-        streamData('  phantom: exit code: ', code + '\n');
-      }
-      callback(code, buffer);
-    });
-  }
-
-  function findPorts(callback) {
-    portscanner.findAPortNotInUse(58080, 58090, 'localhost', function(err, port) {
-      if (err) {
-        throw err;
-      }
-
-      portscanner.findAPortNotInUse(port + 1, 58090, 'localhost', function(err, securePort) {
-        if (err) {
-          throw err;
-        }
-
-        callback(port, securePort);
-      });
-    });
-  }
-
-  var run;
-  findPorts(function(port, securePort) {
-    exports.startServer({
-      proxy: (exports.serverName || function() {}).call(exports),
-      mocks: true,
-      test: true,
-      port: port,
-      securePort: securePort,
-      data: function() {
-        if (run) {
-          return;
-        }
-        run = true;
-
-        (function exec() {
-          var platform = exports.testPlatforms.shift();
-          if (webOnly && !platform.webOnly) {
-            process.exit(superCode);
-            return;
-          }
-
-          runPhantom(platform.platform, platform.androidUA, xunit, port, function(code, buffer) {
-            if (exports.mochaTests && xunit) {
-              fs.writeFileSync('build/' + platform.platform + (platform.androidUA ? '_android' : '') + '.xml', buffer);
-            }
-
-            if (!exports.testPlatforms.length) {
-              process.exit(superCode);
-            } else {
-              exec();
-            }
-          });
-        })();
-      }
-    });
-  });
+  var options = {
+    projectDir: exports.projectDir,
+    forceCORS: exports.forceCORS,
+    testPlatforms: exports.testPlatforms,
+    mochaTests: exports.mochaTests,
+    webOnly: webOnly,
+    xunit: xunit
+  };
+  testRunner.run(options);
 });
 
 
