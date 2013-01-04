@@ -76,6 +76,9 @@ exports.build = function(options) {
   if (options.minimize) {
     args.push('--minimize');
   }
+  if (options.sourceMap) {
+    args.push('--sourceMap');
+  }
 
   var lumbar = child_process.spawn('node', args);
   lumbar.stdout.on('data', function (data) {
