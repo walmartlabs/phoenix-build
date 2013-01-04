@@ -4,51 +4,11 @@ var child_process = require('child_process'),
     glob = require('glob'),
     growl = require('growl'),
     packageGenerator = require('./lib/package-generator'),
-    path = require('path'),
     portscanner = require('portscanner'),
-    util = require('util'),
+    util = require('./lib/util'),
+      mkdir = util.mkdir,
+      streamData = util.streamData,
     wrench = require('wrench');
-
-// Recursive mkdir
-// mkdirsSync(path, [mode=(0777^umask)]) -> pathsCreated
-function mkdir(dirname, mode) {
-  if (mode === undefined) {
-    mode = parseInt('0777', 8) ^ process.umask();
-  }
-  var pathsNotFound = [];
-  var fn = dirname;
-  while (true) {
-    try {
-      var stats = fs.statSync(fn);
-      if (stats.isDirectory()) {
-        break;
-      }
-      throw new Error('Unable to create directory at ' + fn);
-    }
-    catch (e) {
-      pathsNotFound.push(fn);
-      fn = path.dirname(fn);
-    }
-  }
-  for (var i = pathsNotFound.length - 1; i > -1; i--) {
-    var fn = pathsNotFound[i];
-    console.log('mkdir:\t\033[90mmaking directory\033[0m ' + fn);
-    fs.mkdirSync(fn, mode);
-  }
-}
-
-function streamData(prefix, data) {
-  var lines = data.toString().split(/\r\n|\n|\r/g);
-  for (var i = 0, len = lines.length - 1; i < len; i++) {
-    util.print(prefix);
-    util.print(lines[i]);
-    util.print('\n');
-  }
-  if (lines[lines.length - 1]) {
-    util.print(prefix);
-    util.print(lines[lines.length - 1]);
-  }
-}
 
 exports.build = function(options) {
   var complete = options.complete;
