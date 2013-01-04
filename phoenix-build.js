@@ -280,6 +280,9 @@ task('test-runner', [], function(webOnly, xunit) {
     });
     phantom.on('exit', function(code) {
       superCode = superCode | code;
+      if (!xunit && code) {
+        streamData('  phantom: exit code: ', code + '\n');
+      }
       callback(code, buffer);
     });
   }
