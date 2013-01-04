@@ -30,6 +30,7 @@ exports.watch = function(server, mocks) {
 
       exports.build({
         dir: 'build/dev',
+        sourceMap: true,
         watch: true,
         complete: function(code) {
           process.exit(code);
@@ -49,6 +50,7 @@ desc('Process all lumbar modules.');
 task('lumbar', [], function() {
   exports.build({
     dir: 'build/dev',
+    sourceMap: true,
     complete: complete
   });
 }, true);
