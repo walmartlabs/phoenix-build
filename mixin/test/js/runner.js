@@ -1,4 +1,4 @@
-/*global Loader, LocalCache, lumbarLoadPrefix, chai, mocha, mochaPhantomJS */
+/*global Loader, LocalCache, Mocha, lumbarLoadPrefix, chai, mocha, mochaPhantomJS, sinon, qunitShim */
 mocha.setup({
   ui: 'bdd',
   ignoreLeaks: true
@@ -37,6 +37,11 @@ if (typeof qunitShim !== 'undefined') {
   qunitShim();
 }
 
+var execModule = Mocha.utils.parseQuery(window.location.search || '').module;
+function runModule(name) {
+  return !execModule || execModule === name;
+}
+
 // Register the init logic
 Loader.loader.loadComplete = function(moduleName) {
   // Prevent exec when not in test mode or after already executed
@@ -49,11 +54,11 @@ Loader.loader.loadComplete = function(moduleName) {
   Backbone.History.prototype.getFragment = function() { return fragment; };
   Backbone.History.prototype.navigate = function(_fragment) { fragment = _fragment; };
 
-  if (Loader.tests) {
+  if (runModule('loader') && Loader.tests) {
     Loader.tests();
   }
 
-  if (Phoenix.tests) {
+  if (runModule('base') && Phoenix.tests) {
     Phoenix.tests();
   }
 
@@ -66,13 +71,14 @@ Loader.loader.loadComplete = function(moduleName) {
     }
   }
 
-  var expected = _.keys(Loader.loader.modules || {}).length,
+  var modules = _.filter(_.keys(Loader.loader.modules), function(module) { return runModule(module); }),
+      expected = _.keys(modules || {}).length,
       count = 0;
   if (expected === count) {
     expected++;
     run();
   }
-  _.each(Loader.loader.modules, function(module, name) {
+  _.each(modules, function(name) {
     if (name === 'style-doc') {
       // Ignore style-doc!
       count++;
@@ -80,7 +86,7 @@ Loader.loader.loadComplete = function(moduleName) {
     }
 
     Loader.loader.loadModule(name, function() {
-      if (Phoenix[name] && Phoenix[name].tests) {
+      if (runModule(name) && Phoenix[name] && Phoenix[name].tests) {
         Phoenix[name].tests();
       }
       if (++count >= expected) {
