@@ -59,7 +59,7 @@ task('lumbar', [], function() {
 }, true);
 
 desc('Builds production packages');
-task('release', [], function(prefix, pkg) {
+task('release', [], function(prefix, pkg, branch) {
   prefix = prefix || 'phoenix';
 
   exports.build({
@@ -73,7 +73,7 @@ task('release', [], function(prefix, pkg) {
         process.exit(code);
       } else {
         if (exports.generatePackage) {
-          packageGenerator.generate('./package.json', 'build/' + prefix + '/package.json', function(err) {
+          packageGenerator.generate('./package.json', branch, 'build/' + prefix + '/package.json', function(err) {
             if (err) {
               throw err;
             }
