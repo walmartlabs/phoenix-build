@@ -1,6 +1,8 @@
 /*global jake */
-var build = require('./lib/build'),
+var async = require('async'),
+    build = require('./lib/build'),
     glob = require('glob'),
+    growl = require('growl'),
     packageGenerator = require('./lib/package-generator'),
     server = require('./lib/server'),
     testRunner = require('./lib/test-runner'),
@@ -15,7 +17,7 @@ exports.startServer = function(options) {
   options.forceCORS = exports.forceCORS;
   return server.start(options);
 };
-exports.watch = function(server, mocks) {
+exports.watch = function(server, mocks, compiled) {
   glob.sync('build/dev').forEach(wrench.rmdirSyncRecursive);
 
   var run;
@@ -32,6 +34,7 @@ exports.watch = function(server, mocks) {
         dir: 'build/dev',
         sourceMap: true,
         watch: true,
+        compiled: compiled,
         complete: function(code) {
           process.exit(code);
         }
@@ -123,6 +126,30 @@ task('test-runner', [], function(webOnly, xunit) {
   testRunner.run(options);
 });
 
+
+desc('Runs both builds and tests in response to watch changes.');
+task('test-watch', [], function(server, mocks) {
+  var queue = async.queue(function(task, callback) { task(callback); }, 1);
+  exports.watch((exports.serverName || function() {}).apply(exports, arguments), mocks, function(module) {
+    var options = {
+      projectDir: exports.projectDir,
+      forceCORS: exports.forceCORS,
+      testPlatforms: exports.testPlatforms,
+      mochaTests: exports.mochaTests,
+      webOnly: true,
+      module: module,
+    };
+    queue.push(function(callback) {
+      console.log('build: testing module ' + module);
+      testRunner.run(options, function(code) {
+        if (code) {
+          growl('Test ' + module + ' failed: ' + code, { title: 'Test Failed', sticky: true });
+        }
+        callback();
+      });
+    });
+  });
+});
 
 desc('Testing');
 task('test', ['lumbar', 'test-runner'], function() {});
