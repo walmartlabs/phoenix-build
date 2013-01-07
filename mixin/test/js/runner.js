@@ -72,7 +72,7 @@ Loader.loader.loadComplete = function(moduleName) {
   }
 
   var modules = _.filter(_.keys(Loader.loader.modules), function(module) { return runModule(module); }),
-      expected = _.keys(modules || {}).length,
+      expected = modules.length,
       count = 0;
   if (expected === count) {
     expected++;
