@@ -1,9 +1,9 @@
-/*dotfiles jakefile, node*/
+/*dotfiles browser, lumbar, phoenix, mocha, sinon*/
 {
-  "node": true,
-  "es5": true,
-  "esnext": true,
-  "browser": false,
+  "node": false,
+  "es5": false,
+  "esnext": false,
+  "browser": true,
   "bitwise": true,
   "curly": true,
   "eqeqeq": true,
@@ -31,8 +31,20 @@
   "nonstandard": true,
   "onevar": false,
   "predef": [
-    "task",
-    "desc",
-    "complete"
+    "$",
+    "_",
+    "Backbone",
+    "Handlebars",
+    "Thorax",
+    "Phoenix",
+    "module",
+    "exports",
+    "describe",
+    "it",
+    "before",
+    "after",
+    "beforeEach",
+    "afterEach",
+    "sinon"
   ]
 }
