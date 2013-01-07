@@ -22,12 +22,13 @@
     "mock-server": "~1.1",
     "portscanner": "~0.1.3",
     "request": "~2.12.0",
-    "source-map": "~0.1.8",
     "wrench": "*"
   },
   "scripts": {
     "test": "jake test"
   },
   "devDependencies": {},
-  "optionalDependencies": {}
+  "optionalDependencies": {
+    "source-map": "~0.1.8"
+  }
 }
