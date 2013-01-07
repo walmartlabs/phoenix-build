@@ -17,11 +17,12 @@ exports.startServer = function(options) {
   options.forceCORS = exports.forceCORS;
   return server.start(options);
 };
-exports.watch = function(server, mocks, compiled) {
+exports.watch = function(server, mocks, test, compiled) {
   glob.sync('build/dev').forEach(wrench.rmdirSyncRecursive);
 
   var run;
   exports.startServer({
+    test: test,
     proxy: server,
     mocks: mocks,
     data: function() {
@@ -130,7 +131,7 @@ task('test-runner', [], function(webOnly, xunit) {
 desc('Runs both builds and tests in response to watch changes.');
 task('test-watch', [], function(server, mocks) {
   var queue = async.queue(function(task, callback) { task(callback); }, 1);
-  exports.watch((exports.serverName || function() {}).apply(exports, arguments), mocks, function(module) {
+  exports.watch((exports.serverName || function() {}).apply(exports, arguments), mocks, true, function(module) {
     var options = {
       projectDir: exports.projectDir,
       forceCORS: exports.forceCORS,
@@ -140,7 +141,6 @@ task('test-watch', [], function(server, mocks) {
       module: module,
     };
     queue.push(function(callback) {
-      console.log('build: testing module ' + module);
       testRunner.run(options, function(code) {
         if (code) {
           growl('Test ' + module + ' failed: ' + code, { title: 'Test Failed', sticky: true });
