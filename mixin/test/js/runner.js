@@ -33,6 +33,15 @@ afterEach(function() {
   LocalCache.reset(true);
 });
 
+// Create the qunit-style fixure
+var fixture;
+beforeEach(function() {
+  fixture = $('#qunit-fixture').html();
+});
+afterEach(function() {
+  $('#qunit-fixture').html(fixture);
+});
+
 if (typeof qunitShim !== 'undefined') {
   qunitShim();
 }
