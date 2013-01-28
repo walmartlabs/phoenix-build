@@ -5,6 +5,7 @@ var async = require('async'),
     growl = require('growl'),
     packageGenerator = require('./lib/package-generator'),
     server = require('./lib/server'),
+    sourceMap = require('./lib/source-map'),
     testRunner = require('./lib/test-runner'),
     wrench = require('wrench');
 
@@ -141,6 +142,9 @@ task('test-watch', [], function(server, mocks) {
       module: module,
     };
     queue.push(function(callback) {
+      // Cleanup any junk content that we might have
+      sourceMap.reset();
+
       testRunner.run(options, function(code) {
         if (code) {
           growl('Test ' + module + ' failed: ' + code, { title: 'Test Failed', sticky: true });
