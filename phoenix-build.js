@@ -69,6 +69,7 @@ task('release', [], function(prefix, pkg, branch) {
     package: pkg,
     minimize: true,
     removeTests: true,
+    sourceMap: 'build/source-map/' + prefix,
     configFile: './config/production.json',
     complete: function(code) {
       if (code) {
