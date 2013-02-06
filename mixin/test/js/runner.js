@@ -90,7 +90,9 @@ Loader.loader.loadComplete = function(moduleName) {
   _.each(modules, function(name) {
     if (name === 'style-doc') {
       // Ignore style-doc!
-      count++;
+      if (++count >= expected) {
+        run();
+      }
       return;
     }
 
