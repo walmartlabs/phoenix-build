@@ -60,6 +60,18 @@ task('lumbar', [], function() {
   });
 }, true);
 
+desc('Watches for build changes without a server instance.');
+task('lumbar-watch', [], function() {
+  exports.build({
+    dir: 'build/dev',
+    sourceMap: true,
+    watch: true,
+    complete: function(code) {
+      process.exit(code);
+    }
+  });
+}, true);
+
 desc('Builds production packages');
 task('release', [], function(prefix, pkg, branch) {
   prefix = prefix || 'phoenix';
