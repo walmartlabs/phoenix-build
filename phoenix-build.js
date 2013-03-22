@@ -37,6 +37,7 @@ exports.watch = function(server, mocks, test, compiled) {
         sourceMap: true,
         watch: true,
         compiled: compiled,
+        server: exports.buildServer,
         complete: function(code) {
           process.exit(code);
         }
@@ -56,6 +57,7 @@ task('lumbar', [], function() {
   exports.build({
     dir: 'build/dev',
     sourceMap: true,
+    server: exports.buildServer,
     complete: complete
   });
 }, true);
@@ -66,6 +68,7 @@ task('lumbar-watch', [], function() {
     dir: 'build/dev',
     sourceMap: true,
     watch: true,
+    server: exports.buildServer,
     complete: function(code) {
       process.exit(code);
     }
@@ -80,6 +83,7 @@ task('release', [], function(prefix, pkg, branch) {
     dir: 'build/' + prefix,
     package: pkg,
     minimize: true,
+    server: exports.buildServer,
     removeTests: true,
     sourceMap: 'build/source-map/' + prefix,
     configFile: './config/production.json',
