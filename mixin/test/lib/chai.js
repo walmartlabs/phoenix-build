@@ -3439,7 +3439,7 @@
       var str = inspect(obj)
         , type = Object.prototype.toString.call(obj);
 
-      if (str.length >= 100) {
+      if (str.length >= 1000) {
         if (type === '[object Array]') {
           return '[ Array(' + obj.length + ') ]';
         } else if (type === '[object Object]') {
