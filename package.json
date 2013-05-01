@@ -10,7 +10,7 @@
     "node": ">= 0.6"
   },
   "dependencies": {
-    "async": "~0.1.22",
+    "async": "~0.2",
     "colors": "~0.6.0-1",
     "glob": "~3",
     "growl": "*",
@@ -18,10 +18,10 @@
     "lumbar-long-expires": "~1.0",
     "lumbar-style-doc": "~0.6",
     "lumbar-tester": "~1.0",
-    "mocha-phantomjs": "~1.1",
+    "mocha-phantomjs": "~2.0",
     "mock-server": "~1.1",
     "portscanner": "~0.1.3",
-    "request": "~2.12.0",
+    "request": "~2.21",
     "wrench": "*"
   },
   "scripts": {
