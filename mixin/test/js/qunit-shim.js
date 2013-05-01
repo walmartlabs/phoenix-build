@@ -27,6 +27,10 @@ function qunitShim() {
     emitQUnit();
     _describe.call(this, name, exec);
   };
+  window.describe.skip = function(name, exec) {
+    emitQUnit();
+    _describe.skip.call(this, name, exec);
+  };
 
   window.test = function(msg, exec) {
     if (typeof exec === 'number') {
