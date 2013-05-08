@@ -1,6 +1,7 @@
 /*global jake */
 var async = require('async'),
     build = require('./lib/build'),
+    cssTestRunner = require('./lib/css-test-runner'),
     glob = require('glob'),
     growl = require('growl'),
     packageGenerator = require('./lib/package-generator'),
@@ -145,6 +146,17 @@ task('test-runner', [], function(webOnly, xunit) {
   testRunner.run(options);
 });
 
+desc('Testing');
+task('css-test-runner', [], function(webOnly) {
+  var options = {
+    projectDir: exports.projectDir,
+    forceCORS: exports.forceCORS,
+    testPlatforms: exports.testPlatforms,
+    webOnly: webOnly
+  };
+  cssTestRunner.run(options);
+});
+
 
 desc('Runs both builds and tests in response to watch changes.');
 task('test-watch', [], function(server, mocks) {
@@ -174,6 +186,8 @@ task('test-watch', [], function(server, mocks) {
 
 desc('Testing');
 task('test', ['lumbar', 'test-runner'], function() {});
+desc('Testing');
+task('css-test', ['lumbar', 'css-test-runner'], function() {});
 
 task('test-xunit', ['lumbar'], function() {
   jake.Task['test-runner'].invoke(undefined, true);
