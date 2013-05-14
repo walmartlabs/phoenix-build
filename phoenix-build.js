@@ -59,7 +59,14 @@ task('lumbar', [], function() {
     dir: 'build/dev',
     sourceMap: true,
     server: exports.buildServer,
-    complete: complete
+    complete: function(code) {
+      if (code) {
+        console.error('Build failed with code ' + code);
+        process.exit(code);
+      } else {
+        complete();
+      }
+    }
   });
 }, true);
 
