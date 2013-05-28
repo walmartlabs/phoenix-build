@@ -1,6 +1,7 @@
 /*global phantom */
 var fs = require('fs'),
     system = require('system');
+    child_process = require('child_process');
 
 // CasperJS library
 phantom.libPath = fs.absolute(system.args[0] + '/../');
@@ -23,15 +24,20 @@ var config = test.config(),
 var casper = require('casper').create({
   logLevel: 'info',
   pageSettings: {
-    userAgent: userAgent
+    userAgent: userAgent,
+    loadPlugins: false
   },
   viewportSize: {width: width, height: height}
 });
 
 css.init({
   screenshotRoot: './test/screenshots/' + dirname,
-  failedComparisonsRoot: './build/css-failures/' + dirname,
+  //failedComparisonsRoot: './build/css-failures/' + dirname,
   testRunnerUrl: 'http://localhost:' + port + '/ms_admin',
+  onFail: test.onFail,
+  onPass: test.onPass,
+  onTimeout: test.onTimeout,
+  onComplete: test.onComplete,
   fileNameGetter: function(root, filename){
     // Drop the counter from the file name. This means that all screenshots must have a unique id
     var name = root + '/' + filename;
@@ -45,7 +51,15 @@ css.init({
 
 casper.start();
 
-test.test(casper, css, platform, port);
+test.test({
+  casper: casper,
+  css: css,
+  platform:platform,
+  port: port,
+  dirname: dirname,
+  child_process: child_process,
+  screenshotRoot: './test/screenshots/' + dirname
+});
 
 casper.
   then( function now_check_the_screenshots(){
@@ -55,3 +69,4 @@ casper.
     console.log('\nTHE END.');
     phantom.exit(css.getExitStatus());
   });
+
