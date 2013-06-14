@@ -10,6 +10,8 @@ var async = require('async'),
     testRunner = require('./lib/test-runner'),
     wrench = require('wrench');
 
+exports.devDir = 'build/dev';
+
 exports.build = function(options) {
   options.lumbarFile = options.lumbarFile || exports.lumbarFile;
   build.build(options);
@@ -20,7 +22,7 @@ exports.startServer = function(options) {
   return server.start(options);
 };
 exports.watch = function(server, mocks, test, compiled) {
-  glob.sync('build/dev').forEach(wrench.rmdirSyncRecursive);
+  glob.sync(exports.devDir).forEach(wrench.rmdirSyncRecursive);
 
   var run;
   exports.startServer({
@@ -34,7 +36,7 @@ exports.watch = function(server, mocks, test, compiled) {
       run = true;
 
       exports.build({
-        dir: 'build/dev',
+        dir: exports.devDir,
         sourceMap: true,
         watch: true,
         compiled: compiled,
@@ -56,7 +58,7 @@ task('default', ['lumbar'], function() {});
 desc('Process all lumbar modules.');
 task('lumbar', [], function() {
   exports.build({
-    dir: 'build/dev',
+    dir: exports.devDir,
     sourceMap: true,
     server: exports.buildServer,
     complete: function(code) {
@@ -73,7 +75,7 @@ task('lumbar', [], function() {
 desc('Watches for build changes without a server instance.');
 task('lumbar-watch', [], function() {
   exports.build({
-    dir: 'build/dev',
+    dir: exports.devDir,
     sourceMap: true,
     watch: true,
     server: exports.buildServer,
