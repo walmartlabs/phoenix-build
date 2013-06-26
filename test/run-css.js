@@ -13,8 +13,9 @@ var css = require(phantom.libPath + '/phantomcss.js'),
 var config = test.config(),
 
     port = phantom.args[0],
-    platform = phantom.args[1],
-    userAgent = phantom.args[2],
+    securePort = phantom.args[1],
+    platform = phantom.args[2],
+    userAgent = phantom.args[3],
     dirname = platform + (/Android/.test(userAgent) ? '_android' : '_ios')
     width = config.width || 320,
     height = config.height || 480;
@@ -45,7 +46,7 @@ css.init({
 
 casper.start();
 
-test.test(casper, css, platform, port);
+test.test(casper, css, platform, port, securePort);
 
 casper.
   then( function now_check_the_screenshots(){
