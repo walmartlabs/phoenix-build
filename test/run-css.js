@@ -46,6 +46,10 @@ css.init({
 
 casper.start();
 
+casper.on('remote.message', function(message) {
+  console.log(message);
+});
+
 test.test(casper, css, platform, port, securePort);
 
 casper.
