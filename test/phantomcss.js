@@ -90,9 +90,8 @@ function screenshot(selector, timeToWait, hideSelector, fileName){
       casper.captureSelector( _fileNameGetter(_root, fileName) , selector);
     }
     catch(ex){
-      console.log("Screenshot FAILED: " + ex.message);
+      this.warn("Screenshot FAILED: " + ex.message);
     }
-    
   }); // give a bit of time for all the images appear
 }
 
