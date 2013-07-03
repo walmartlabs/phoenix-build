@@ -72,7 +72,7 @@ function _fileNameGetter(root, fileName){
 
 function screenshot(selector, timeToWait, hideSelector, fileName){
   casper.captureBase64('png'); // force pre-render
-  casper.wait(timeToWait || 250, function(){
+  casper.wait(timeToWait || 80, function(){
 
     if(hideSelector || _hideElements){
       casper.evaluate(function(s1, s2){
