@@ -33,6 +33,17 @@ afterEach(function() {
   LocalCache.reset(true);
 });
 
+var _failHook = Mocha.Runner.prototype.failHook;
+Mocha.Runner.prototype.failHook = function() {
+  if (console.log.restore) {
+    console.log.restore();
+  }
+  if (console.error.restore) {
+    console.error.restore();
+  }
+  return _failHook.apply(this, arguments);
+};
+
 // Create the qunit-style fixure
 var fixture;
 beforeEach(function() {
