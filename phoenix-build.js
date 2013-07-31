@@ -148,7 +148,6 @@ task('test-runner', [], function(webOnly, xunit) {
     projectDir: exports.projectDir,
     forceCORS: exports.forceCORS,
     testPlatforms: exports.testPlatforms,
-    mochaTests: exports.mochaTests,
     webOnly: webOnly,
     xunit: xunit
   };
@@ -175,7 +174,6 @@ task('test-watch', [], function(server, mocks) {
       projectDir: exports.projectDir,
       forceCORS: exports.forceCORS,
       testPlatforms: exports.testPlatforms,
-      mochaTests: exports.mochaTests,
       webOnly: true,
       module: module,
     };
