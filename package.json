@@ -14,7 +14,7 @@
     "colors": "~0.6.0-1",
     "glob": "~3",
     "growl": "*",
-    "lumbar": "~2.3",
+    "lumbar": "~2.4",
     "lumbar-long-expires": "~1.0",
     "lumbar-style-doc": "~0.6",
     "lumbar-tester": "~1.0",
