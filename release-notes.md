@@ -2,7 +2,13 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.0...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.1...master)
+
+## v2.4.1 - November 19th, 2013
+
+- Update long expires dependency - fab5a3a
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.0...v2.4.1)
 
 ## v2.4.0 - November 6th, 2013
 
