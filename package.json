@@ -15,7 +15,7 @@
     "glob": "~3",
     "growl": "*",
     "lumbar": "~2.4",
-    "lumbar-long-expires": "~1.0",
+    "lumbar-long-expires": "~1.1",
     "lumbar-style-doc": "~0.6",
     "lumbar-tester": "~1.0",
     "mocha-phantomjs": "~3.1",
