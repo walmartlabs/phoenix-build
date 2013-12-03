@@ -47,10 +47,10 @@ Mocha.Runner.prototype.failHook = function() {
 // Create the qunit-style fixure
 var fixture;
 beforeEach(function() {
-  fixture = $('#qunit-fixture').html();
+  fixture = document.getElementById('qunit-fixture').innerHTML || '';
 });
 afterEach(function() {
-  $('#qunit-fixture').html(fixture);
+  (document.getElementById('qunit-fixture') || {}).innerHTML = fixture;
 });
 
 if (typeof qunitShim !== 'undefined') {
@@ -83,7 +83,7 @@ Loader.loader.loadComplete = function(moduleName) {
   }
 
   function run() {
-    $('#mocha-stats').html(expected + ' modules loaded<br>Version: ' + lumbarLoadPrefix);
+    (document.getElementById('mocha-stats') || {}).innerHTML = expected + ' modules loaded<br>Version: ' + lumbarLoadPrefix;
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();
     } else {
