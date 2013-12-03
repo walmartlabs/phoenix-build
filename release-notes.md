@@ -2,7 +2,15 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.1...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.2...master)
+
+## v2.4.2 - December 3rd, 2013
+
+- Fix formatting of test UI - 93b811b
+- Remove backbone requirement from test runner - c85751c
+- Remove $ requirement from test runner - 73c2359
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.1...v2.4.2)
 
 ## v2.4.1 - November 19th, 2013
 
