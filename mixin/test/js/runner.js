@@ -69,10 +69,12 @@ Loader.loader.loadComplete = function(moduleName) {
     return;
   }
 
-  var fragment = '';
-  Backbone.history.options = { root: '/' };
-  Backbone.History.prototype.getFragment = function() { return fragment; };
-  Backbone.History.prototype.navigate = function(_fragment) { fragment = _fragment; };
+  if (window.Backbone) {
+    var fragment = '';
+    Backbone.history.options = { root: '/' };
+    Backbone.History.prototype.getFragment = function() { return fragment; };
+    Backbone.History.prototype.navigate = function(_fragment) { fragment = _fragment; };
+  }
 
   if (runModule('loader') && Loader.tests) {
     Loader.tests();
