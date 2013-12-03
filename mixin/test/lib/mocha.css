@@ -9,6 +9,7 @@ body {
 #mocha ul, #mocha li {
   margin: 0;
   padding: 0;
+  clear: both;
 }
 
 #mocha ul {
@@ -220,6 +221,7 @@ body {
   margin: 0 5px;
   list-style: none;
   padding-top: 11px;
+  clear: both;
 }
 
 code .comment { color: #ddd }
