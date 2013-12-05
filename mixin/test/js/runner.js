@@ -26,7 +26,7 @@ beforeEach(function() {
   Phoenix.setView = function() { throw new Error('setView called without stub'); };
 });
 afterEach(function() {
-  this.clock.tick(1000);
+  this.clock && this.clock.tick(1000);
   this.sandbox.verifyAndRestore();
 
   Phoenix.setView = this._setView;
