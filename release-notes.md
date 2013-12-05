@@ -2,7 +2,16 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.2...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.5.0...master)
+
+## v2.5.0 - December 5th, 2013
+
+- Upgrade to lumbar 2.5 - bf3c120
+
+Compatibility notes:
+- lumbar 2.5 uses stylus 0.41 and nib 1.0, which have breaking changes.
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.4.2...v2.5.0)
 
 ## v2.4.2 - December 3rd, 2013
 
