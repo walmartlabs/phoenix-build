@@ -2,7 +2,13 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.5.0...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.5.1...master)
+
+## v2.5.1 - December 12th, 2013
+
+- Protect from missing clock case - b0447aa
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.5.0...v2.5.1)
 
 ## v2.5.0 - December 5th, 2013
 
