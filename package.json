@@ -22,6 +22,7 @@
     "mock-server": "1.x",
     "portscanner": "~0.1.3",
     "request": "~2.21",
+    "underscore": "1.x",
     "wrench": "*"
   },
   "scripts": {
