@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.5.1...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.6.0...master)
+
+## v2.6.0 - December 17th, 2013
+- Implement hapi-routes grunt task - 6d5f90c
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.5.1...v2.6.0)
 
 ## v2.5.1 - December 12th, 2013
 
