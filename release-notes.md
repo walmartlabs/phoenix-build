@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.6.0...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.0...master)
+
+## v2.7.0 - December 19th, 2013
+- Implement phoenix-build lumbar task - c8c8017
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.6.0...v2.7.0)
 
 ## v2.6.0 - December 17th, 2013
 - Implement hapi-routes grunt task - 6d5f90c
