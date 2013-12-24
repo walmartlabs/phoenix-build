@@ -1,6 +1,5 @@
-
 module.exports = function(grunt) {
-  grunt.loadNpmTasks('lumbar');
+  grunt.loadTasks(__dirname + '/../node_modules/lumbar/tasks');
 
   grunt.registerMultiTask('phoenix-build', 'outputs a projects module map', function() {
     var buildDir = 'build/dev',
