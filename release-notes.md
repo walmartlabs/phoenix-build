@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.0...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.1...master)
+
+## v2.7.1 - December 24th, 2013
+- Fix lumbar module reference - 256b206
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.0...v2.7.1)
 
 ## v2.7.0 - December 19th, 2013
 - Implement phoenix-build lumbar task - c8c8017
