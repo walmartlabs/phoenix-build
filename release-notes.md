@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.1...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.2...master)
+
+## v2.7.2 - December 31st, 2013
+- Allow failover for explicitly passed fragment - 24dbac5
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.1...v2.7.2)
 
 ## v2.7.1 - December 24th, 2013
 - Fix lumbar module reference - 256b206
