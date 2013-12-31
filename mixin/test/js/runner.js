@@ -72,7 +72,15 @@ Loader.loader.loadComplete = function(moduleName) {
   if (window.Backbone) {
     var fragment = '';
     Backbone.history.options = { root: '/' };
-    Backbone.History.prototype.getFragment = function() { return fragment; };
+
+    var $getFragment = Backbone.History.prototype.getFragment;
+    Backbone.History.prototype.getFragment = function(_fragment) {
+      if (_fragment) {
+        return $getFragment.apply(this, arguments);
+      } else {
+        return fragment;
+      }
+    };
     Backbone.History.prototype.navigate = function(_fragment) { fragment = _fragment; };
   }
 
