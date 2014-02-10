@@ -2,7 +2,14 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.2...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.0.0...master)
+
+## v3.0.0 - February 10th, 2014
+- Update hapi routes to include module exec info - 439d236
+- Update to lumbar 3.x - fbf2eb9
+- Provide nextTick stub for tests - dbdb515
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v2.7.2...v3.0.0)
 
 ## v2.7.2 - December 31st, 2013
 - Allow failover for explicitly passed fragment - 24dbac5
