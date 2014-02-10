@@ -1,6 +1,6 @@
 {
   "name": "phoenix-build",
-  "version": "2.7.2",
+  "version": "3.0.0",
   "main": "phoenix-build.js",
   "repository": {
     "type": "git",
