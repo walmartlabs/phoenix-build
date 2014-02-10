@@ -84,6 +84,13 @@ Loader.loader.loadComplete = function(moduleName) {
     Backbone.History.prototype.navigate = function(_fragment) { fragment = _fragment; };
   }
 
+  // Force setTimeout via indirect call for nextTick to allow for stubbing.
+  if (typeof nextTick !== 'undefined') {
+    nextTick = function() {
+      return setTimeout.call(this, arguments);
+    };
+  }
+
   if (runModule('loader') && Loader.tests) {
     Loader.tests();
   }
