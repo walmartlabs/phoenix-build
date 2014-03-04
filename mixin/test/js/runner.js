@@ -104,7 +104,7 @@ Loader.loader.loadComplete = function(moduleName) {
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();
     } else {
-      mocha.run();
+      sauceHelper(mocha.run());
     }
   }
 
