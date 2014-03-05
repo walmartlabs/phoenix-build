@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.0...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.1...master)
+
+## v3.1.1 - March 4th, 2014
+- Defer test exec to avoid IE10 $.ready bug - 116fb8e
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.0...v3.1.1)
 
 ## v3.1.0 - March 4th, 2014
 - Update test mixin for latest sauce labs API - f99a571
