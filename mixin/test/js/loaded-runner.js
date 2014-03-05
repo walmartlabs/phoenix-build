@@ -27,9 +27,12 @@ afterEach(function() {
 });
 
 $(document).ready(function() {
-  if (window.mochaPhantomJS) {
-    mochaPhantomJS.run();
-  } else {
-    sauceHelper(mocha.run());
-  }
+  // Pop off the stack to avoid an Zepto+IE10 bug where ready triggers immediately
+  setTimeout(function() {
+    if (window.mochaPhantomJS) {
+      mochaPhantomJS.run();
+    } else {
+      sauceHelper(mocha.run());
+    }
+  });
 });
