@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.1...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.2...master)
+
+## v3.1.2 - March 5th, 2014
+- Avoid using chai if not defined - fbba0b9
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.1...v3.1.2)
 
 ## v3.1.1 - March 4th, 2014
 - Defer test exec to avoid IE10 $.ready bug - 116fb8e
