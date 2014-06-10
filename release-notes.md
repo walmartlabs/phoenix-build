@@ -2,7 +2,24 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.2...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.0...master)
+
+## v4.0.0 - June 9th, 2014
+- Use hapi-routes from hula-hoop - 7cb3919
+
+Compatibility notes:
+- hapi-route default libraries and plugins are no longer automatically included after this change. Users will need to specify them explicitly. Ex:
+
+```
+  libraries: [
+    __dirname + '/node_modules/phoenix-build/mixin'
+  ],
+  plugins: [
+    {path: __dirname + '/node_modules/phoenix-build/node_modules/lumbar-long-expires'}
+  ]
+```
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v3.1.2...v4.0.0)
 
 ## v3.1.2 - March 5th, 2014
 - Avoid using chai if not defined - fbba0b9
