@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/lumbar/tasks');
+  grunt.loadTasks(__dirname + '/../node_modules/hula-hoop/tasks');
 
   grunt.registerMultiTask('phoenix-build', 'outputs a projects module map', function() {
     var buildDir = 'build/dev',
