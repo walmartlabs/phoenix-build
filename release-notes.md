@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.0...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.1...master)
+
+## v4.0.1 - June 9th, 2014
+- Import hula-hoop lib - 84684d3
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.0...v4.0.1)
 
 ## v4.0.0 - June 9th, 2014
 - Use hapi-routes from hula-hoop - 7cb3919
