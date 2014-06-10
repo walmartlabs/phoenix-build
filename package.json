@@ -14,6 +14,7 @@
     "colors": "~0.6.0-1",
     "glob": "~3",
     "growl": "*",
+    "hula-hoop": "0.x.x",
     "lumbar": "4.x",
     "lumbar-long-expires": "1.x",
     "lumbar-style-doc": "0.x",
