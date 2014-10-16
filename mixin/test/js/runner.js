@@ -116,7 +116,7 @@ Loader.loader.loadComplete = function(moduleName) {
 
     // Run any modules that may have been inlined if we are in combined mode
     _.each(Phoenix, function(obj, name) {
-      if (obj.tests) {
+      if (obj && obj.tests) {
         obj.tests();
       }
     });
