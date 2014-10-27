@@ -2,7 +2,12 @@
 
 ## Development
 
-[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.2...master)
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.3...master)
+
+## v4.0.3 - October 27th, 2014
+- [#5](https://github.com/walmartlabs/phoenix-build/pull/5) - Avoid using chai if not defined ([@patrickkettner](https://api.github.com/users/patrickkettner))
+
+[Commits](https://github.com/walmartlabs/phoenix-build/compare/v4.0.2...v4.0.3)
 
 ## v4.0.2 - October 16th, 2014
 - Protect from undefined values on Phoenix object - 6132a2d
