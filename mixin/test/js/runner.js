@@ -4,9 +4,11 @@ mocha.setup({
   ignoreLeaks: true
 });
 
-window.expect = chai.expect;
+if (window.chai) {
+  window.expect = chai.expect;
 
-chai.Assertion.includeStack = true;
+  chai.Assertion.includeStack = true;
+}
 
 sinon.config = {
   injectIntoThis: true,
