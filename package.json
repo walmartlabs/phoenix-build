@@ -21,7 +21,7 @@
     "lumbar-tester": "1.x",
     "mocha-phantomjs": "3.x",
     "mock-server": "1.x",
-    "portscanner": "~0.1.3",
+    "portscanner": "~0.2.3",
     "request": "2.x",
     "underscore": "1.x",
     "wrench": "*"
